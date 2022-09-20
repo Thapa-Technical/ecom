@@ -3,5 +3,6 @@ export const uniqueValues = (data, type) => {
   if (type === "colors") {
     unique = unique.flat();
   }
+  // to get only the unique value we use the set data struc
   return ["all", ...new Set(unique)];
 };

@@ -2,14 +2,23 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 import { CgMenu, CgClose } from "react-icons/cg";
+import { FiShoppingCart } from "react-icons/fi";
+import { useCartContext } from "../context/cart_context";
+import { useAuth0 } from "@auth0/auth0-react";
+import { Button } from "../styles/Button";
 
 const Navbar = () => {
   const [menuIcon, setMenuIcon] = useState();
+
+  const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
+
+  const { total_item } = useCartContext();
 
   const Nav = styled.nav`
     .navbar-lists {
       display: flex;
       gap: 4.8rem;
+      align-items: center;
 
       .navbar-link {
         &:link,
@@ -43,6 +52,39 @@ const Navbar = () => {
 
     .close-outline {
       display: none;
+    }
+
+    .cart-trolley--link {
+      position: relative;
+
+      .cart-trolley {
+        position: relative;
+        font-size: 3.2rem;
+      }
+
+      .cart-total--item {
+        width: 2.4rem;
+        height: 2.4rem;
+        position: absolute;
+        background-color: #000;
+        color: #000;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        top: -20%;
+        left: 70%;
+        background-color: ${({ theme }) => theme.colors.helper};
+      }
+    }
+
+    .user-login--name {
+      text-transform: capitalize;
+    }
+
+    .user-logout,
+    .user-login {
+      font-size: 1.4rem;
+      padding: 0.8rem 1.4rem;
     }
 
     @media (max-width: ${({ theme }) => theme.media.mobile}) {
@@ -101,6 +143,26 @@ const Navbar = () => {
           font-size: 4.2rem;
         }
       }
+      .cart-trolley--link {
+        position: relative;
+
+        .cart-trolley {
+          position: relative;
+          font-size: 5.2rem;
+        }
+
+        .cart-total--item {
+          width: 4.2rem;
+          height: 4.2rem;
+          font-size: 2rem;
+        }
+      }
+
+      .user-logout,
+      .user-login {
+        font-size: 2.2rem;
+        padding: 0.8rem 1.4rem;
+      }
     }
   `;
 
@@ -140,9 +202,38 @@ const Navbar = () => {
               Contact
             </NavLink>
           </li>
+          {isAuthenticated && (
+            <p className="user-login--name">Welcome, {user.name}</p>
+          )}
+          {isAuthenticated ? (
+            <li>
+              <Button
+                className="user-logout"
+                onClick={() => logout({ returnTo: window.location.origin })}>
+                Log Out
+              </Button>
+            </li>
+          ) : (
+            <li>
+              <Button
+                className="user-login"
+                onClick={() => loginWithRedirect()}>
+                Log In
+              </Button>
+            </li>
+          )}
+          <li>
+            <NavLink
+              onClick={() => setMenuIcon(false)}
+              className="navbar-link cart-trolley--link"
+              to="/cart">
+              <FiShoppingCart className="cart-trolley" />
+              <span className="cart-total--item">{total_item}</span>
+            </NavLink>
+          </li>
         </ul>
 
-        <div className="mobile-navbar-btn">
+        <div div className="mobile-navbar-btn">
           <CgMenu
             name="menu-outline"
             className="mobile-nav-icon"

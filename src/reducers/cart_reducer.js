@@ -5,7 +5,7 @@ const cat_reducer = (state, action) => {
 
       //Note:  we are doing this to find the already existing item in cart with the same color
       const tempItem = state.cart.find((i) => i.id === id + color);
-      console.log("🚀 ~ file: cart_reducer.js ~ line 12 ~ tempItem", tempItem);
+      console.log("🚀 ~ file: cart_reducer.js ~ line 12 ~ tempItem", color);
 
       let newItem;
       if (tempItem) {
@@ -31,10 +31,11 @@ const cat_reducer = (state, action) => {
           name: product.name,
           color: color,
           amount,
-          image: product.images[0].url,
+          image: product.image[0].url,
           price: product.price,
           max: product.stock,
         };
+        console.log("🚀 ~ file: cart_reducer.js ~ line 30 ~ newItem", newItem);
       }
 
       return {
@@ -94,11 +95,26 @@ const cat_reducer = (state, action) => {
     }
 
     case "CART_TOTAL_AMOUNT":
-      let { price } = action.payload;
-      let totalPrice = price * amount;
+      let { total_amount, total_item } = state.cart.reduce(
+        (accum, cartItem) => {
+          let { price, amount } = cartItem;
+
+          accum.total_item += amount;
+          accum.total_amount += price * amount;
+          // debugger;
+          return accum;
+        },
+        {
+          total_item: 0,
+          total_amount: 0,
+        }
+      );
+
+      // return accum;
       return {
         ...state,
-        total_amount: totalPrice,
+        total_amount,
+        total_item,
       };
   }
 };

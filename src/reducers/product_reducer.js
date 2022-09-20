@@ -33,8 +33,10 @@ const reducer = (state, action) => {
         isSinglePageLoading: false,
         singleProduct: action.payload,
       };
+
+    default:
+      return state;
   }
-  return state;
 };
 
 export default reducer;

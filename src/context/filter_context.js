@@ -1,5 +1,5 @@
 import React, { createContext, useReducer, useEffect, useContext } from "react";
-import { useGlobalContext } from "../context";
+import { useGlobalContext } from "./context";
 import reducer from "../reducers/filter_reducer";
 
 const FilterContext = createContext();
@@ -8,7 +8,7 @@ const initialState = {
   filter_products: [],
   all_products: [],
   grid_view: true,
-  sort: "price-lowest",
+  sort: "a-z",
   filters: {
     text: "",
     category: "all",
@@ -17,7 +17,7 @@ const initialState = {
     price: 0,
     min_price: 0,
     max_price: 0,
-    shipping: false,
+    // shipping: false,
   },
 };
 
@@ -37,6 +37,7 @@ export const FilterContextProvider = ({ children }) => {
   };
 
   // NOTE: Sort Price & value
+  // when we clicked anyone of the option, this function will be called.
   const sortUpdate = (e) => {
     const value = e.target.value;
     return dispatch({ type: "SORT_PRICE", payload: value });
@@ -64,9 +65,9 @@ export const FilterContextProvider = ({ children }) => {
     }
 
     // NOTE: to check the checkbox is ticked or not
-    if (name === "shipping") {
-      value = e.target.checked;
-    }
+    // if (name === "shipping") {
+    //   value = e.target.checked;
+    // }
 
     return dispatch({ type: "UPDATE_FILTERS", payload: { name, value } });
   };

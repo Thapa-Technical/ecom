@@ -1,9 +1,11 @@
-import React, { useEffect } from "react";
-import { FaStar, FaStarHalfAlt, FaStarOfDavid } from "react-icons/fa";
+import { FaStar, FaStarHalfAlt } from "react-icons/fa";
+import { AiOutlineStar } from "react-icons/ai";
+
 import styled from "styled-components";
 
 const Star = ({ stars, review }) => {
   const ratingStar = Array.from({ length: 5 }, (_, index) => {
+    // to get the idea about the half star
     let numbers = index + 0.5;
     return (
       <span key={index}>
@@ -13,7 +15,7 @@ const Star = ({ stars, review }) => {
         ) : stars >= numbers ? (
           <FaStarHalfAlt className="icon" />
         ) : (
-          <FaStarOfDavid className="icon" />
+          <AiOutlineStar className="icon empty-icon" />
         )}
       </span>
     );
@@ -24,9 +26,7 @@ const Star = ({ stars, review }) => {
     <Wrapper>
       <div className="icon-style">
         {ratingStar}
-        <p>
-          ({review} + {stars} customer reviews)
-        </p>
+        <p>({review} customer reviews)</p>
       </div>
     </Wrapper>
   );
@@ -44,6 +44,9 @@ const Wrapper = styled.section`
       color: orange;
     }
 
+    .empty-icon {
+      font-size: 2.6rem;
+    }
     p {
       margin: 0;
       padding-left: 1.2rem;

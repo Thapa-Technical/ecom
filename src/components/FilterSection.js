@@ -9,12 +9,13 @@ import FormatPrice from "../Helpers/FormatPrice";
 const FilterSection = () => {
   const [color, setColor] = useState();
   const {
-    filters: { text, price, min_price, max_price, shipping, category },
+    filters: { text, price, min_price, max_price, category },
     updateFilters,
     all_products,
     clearFilters,
   } = useFilterContext();
 
+  // here we need to get the unique property values based on the 2nd argument respective in an array so that we can use map and display on page
   const categories = uniqueValues(all_products, "category");
   const company = uniqueValues(all_products, "company");
   const colors = uniqueValues(all_products, "colors");
@@ -95,6 +96,7 @@ const FilterSection = () => {
                 name="colors"
                 data-color={curColor}
                 onClick={updateFilters}>
+                {/* // TODO:  I have to fix this one..  */}
                 {color === curColor ? <FaCheck className="checkStyle" /> : null}
               </button>
             );
@@ -117,7 +119,7 @@ const FilterSection = () => {
         />
       </div>
 
-      <div className="filter-shipping">
+      {/* <div className="filter-shipping">
         <p>Free Shipping </p>
         <input
           type="checkbox"
@@ -126,7 +128,7 @@ const FilterSection = () => {
           onChange={updateFilters}
           checked={shipping}
         />
-      </div>
+      </div> */}
 
       <div className="filter-clear">
         <Button className="btn" onClick={clearFilters}>
@@ -181,11 +183,10 @@ const Wrapper = styled.section`
   }
 
   .filter-company--select {
-    padding: 0.5rem;
-
-    option {
-      text-transform: capitalize;
-    }
+    padding: 0.3rem 1.2rem;
+    font-size: 1.6rem;
+    color: ${({ theme }) => theme.colors.text};
+    text-transform: capitalize;
   }
 
   .filter-color-style {

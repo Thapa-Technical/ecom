@@ -1,13 +1,16 @@
-import { Profiler } from "react";
-
 const filter_reducer = (state, action) => {
   switch (action.type) {
     case "LOAD_PRODUCTS":
       let maxPrice = action.payload.map((product) => product.price);
+      console.log("🚀 ~ file: filter_reducer.js ~ line 5 ~ maxPrice", maxPrice);
 
       /* NOTE: You try to pass array, but functions (min, max) accept only number arguments.
          You need to unpack array to array of arguments with the spread operator (...) */
       maxPrice = Math.max(...maxPrice);
+      console.log(
+        "🚀 ~ file: filter_reducer.js ~ line 11 ~ maxPrice",
+        maxPrice
+      );
       return {
         ...state,
         filter_products: [...action.payload],
@@ -82,7 +85,17 @@ const filter_reducer = (state, action) => {
       }
 
       if (category !== "all") {
-        tempFilterProd = tempFilterProd.filter((c) => c.category === category);
+        tempFilterProd = [
+          ...new Set(
+            tempFilterProd.filter(
+              (c) => c.category.toLowerCase() === category.toLowerCase()
+            )
+          ),
+        ];
+        console.log(
+          "🚀 ~ file: filter_reducer.js ~ line 87 ~ tempFilterProd",
+          tempFilterProd
+        );
       }
 
       if (company !== "all") {
@@ -96,7 +109,7 @@ const filter_reducer = (state, action) => {
       }
 
       if (price === 0) {
-        tempFilterProd = tempFilterProd.filter((prod) => prod.price == price);
+        tempFilterProd = tempFilterProd.filter((prod) => prod.price === price);
       } else {
         tempFilterProd = tempFilterProd.filter((prod) => prod.price <= price);
       }
@@ -125,8 +138,11 @@ const filter_reducer = (state, action) => {
           text: "",
         },
       };
+
+    default:
+      return state;
   }
-  return state;
+  // return state;
 };
 
 export default filter_reducer;

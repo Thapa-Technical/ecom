@@ -1,13 +1,18 @@
-import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useCartContext } from "./context/cart_context";
 import FormatPrice from "./Helpers/FormatPrice";
 import { Button } from "./styles/Button";
 import CartItem from "./components/CartItem";
+import { NavLink } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Cart = () => {
-  const { cart, shipping_fee, total_amount, totalAmount, clearCart } =
-    useCartContext();
+  const { cart, shipping_fee, total_amount, clearCart } = useCartContext();
+  console.log(
+    "🚀 ~ file: Cart.js ~ line 11 ~ Cart ~ shipping_fee",
+    shipping_fee
+  );
+  const { user, isAuthenticated } = useAuth0();
 
   if (cart.length == 0) {
     return (
@@ -20,11 +25,19 @@ const Cart = () => {
   return (
     <Wrapper>
       <div className="container">
-        <div className="cart-heading grid grid-four-column">
+        {isAuthenticated && (
+          <div className="cart-user--profile">
+            <img src={user.picture} alt={user.name} />
+            <h2 className="cart-user--name">{user.name} cart items</h2>
+          </div>
+        )}
+
+        <div className="cart-heading grid grid-five-column">
           <p>Item</p>
-          <p>Price</p>
+          <p className="cart-hide">Price</p>
           <p>Quantity</p>
-          <p>Subtotal</p>
+          <p className="cart-hide">Subtotal</p>
+          <p>Remove</p>
         </div>
         <hr />
         <div className="cart-item">
@@ -34,26 +47,36 @@ const Cart = () => {
         </div>
         <hr />
         <div className="cart-two-button">
-          <Button> continue shopping </Button>
-          <Button className="btn-clear" onClick={clearCart}>
-            Clear shopping Cart
+          <NavLink to="/products">
+            <Button className="btn"> continue shopping </Button>
+          </NavLink>
+          <Button className="btn btn-clear" onClick={clearCart}>
+            Clear Cart
           </Button>
         </div>
 
         {/* order total_amount */}
         <div className="order-total--amount">
-          <div>
-            <p>subtotal</p>
-            <p>{FormatPrice(total_amount)}</p>
-          </div>
-          <div>
-            <p>Shipping fee:</p>
-            <p>{FormatPrice(shipping_fee)}</p>
-          </div>
-          <hr />
-          <div>
-            <p>order total:</p>
-            <p>{total_amount + shipping_fee}</p>
+          <div className="order-total--subdata">
+            <div>
+              <p>subtotal:</p>
+              <p>
+                <FormatPrice price={total_amount} />
+              </p>
+            </div>
+            <div>
+              <p>Shipping fee:</p>
+              <p>
+                <FormatPrice price={shipping_fee} />
+              </p>
+            </div>
+            <hr />
+            <div>
+              <p>order total:</p>
+              <p>
+                <FormatPrice price={total_amount + shipping_fee} />
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -75,6 +98,7 @@ const Wrapper = styled.section`
   }
   .cart-heading {
     text-align: center;
+    text-transform: uppercase;
   }
   hr {
     margin-top: 1rem;
@@ -86,6 +110,25 @@ const Wrapper = styled.section`
     gap: 3.2rem;
   }
 
+  .cart-user--profile {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1.2rem;
+    margin-bottom: 5.4rem;
+
+    img {
+      width: 8rem;
+      height: 8rem;
+      border-radius: 50%;
+    }
+    h2 {
+      font-size: 2.4rem;
+    }
+  }
+  .cart-user--name {
+    text-transform: capitalize;
+  }
   .cart-image--name {
     /* background-color: red; */
     align-items: center;
@@ -142,6 +185,76 @@ const Wrapper = styled.section`
     .amount-style {
       font-size: 2.4rem;
       color: ${({ theme }) => theme.colors.btn};
+    }
+  }
+
+  .remove_icon {
+    font-size: 1.6rem;
+    color: #e74c3c;
+    cursor: pointer;
+  }
+
+  .order-total--amount {
+    width: 100%;
+    margin: 4.8rem 0;
+    text-transform: capitalize;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+
+    .order-total--subdata {
+      border: 0.1rem solid #f0f0f0;
+      display: flex;
+      flex-direction: column;
+      gap: 1.8rem;
+      padding: 3.2rem;
+    }
+    div {
+      display: flex;
+      gap: 3.2rem;
+      justify-content: space-between;
+    }
+
+    div:last-child {
+      background-color: #fafafa;
+    }
+
+    div p:last-child {
+      font-weight: bold;
+      color: ${({ theme }) => theme.colors.heading};
+    }
+  }
+
+  @media (max-width: ${({ theme }) => theme.media.mobile}) {
+    .grid-five-column {
+      grid-template-columns: 1.5fr 1fr 0.5fr;
+    }
+    .cart-hide {
+      display: none;
+    }
+
+    .cart-two-button {
+      margin-top: 2rem;
+      display: flex;
+      justify-content: space-between;
+      gap: 2.2rem;
+    }
+
+    .order-total--amount {
+      width: 100%;
+      text-transform: capitalize;
+      justify-content: flex-start;
+      align-items: flex-start;
+
+      .order-total--subdata {
+        width: 100%;
+        border: 0.1rem solid #f0f0f0;
+        display: flex;
+        flex-direction: column;
+        gap: 1.8rem;
+        padding: 3.2rem;
+      }
     }
   }
 `;

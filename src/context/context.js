@@ -1,8 +1,9 @@
 import axios from "axios";
 import React, { useEffect, useContext, useReducer } from "react";
-import reducer from "./product_reducer";
+import reducer from "../reducers/product_reducer";
 
-const API = "https://course-api.com/react-store-products";
+// const API = "https://thapa-store.up.railway.app/api/products";
+const API = "https://api.pujakaitem.com/api/products";
 
 const AppContext = React.createContext();
 
@@ -33,7 +34,6 @@ const AppProvider = ({ children }) => {
   };
 
   // 2nd we need to call the api for all the single products
-
   const getSingleProduct = async (url) => {
     dispatch({ type: "SET_SINGLE_LODING" });
     try {

@@ -24,7 +24,7 @@ const MainHeader = styled.header`
   position: relative;
 
   .logo {
-    height: 3rem;
+    height: 5rem;
   }
 
   @media (max-width: ${({ theme }) => theme.media.mobile}) {

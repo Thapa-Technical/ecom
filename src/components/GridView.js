@@ -16,7 +16,6 @@ const GridView = ({ products }) => {
 
 const Wrapper = styled.section`
   padding: 9rem 0;
-  /* background-color: ${({ theme }) => theme.colors.bg}; */
 
   .container {
     max-width: 120rem;
@@ -60,22 +59,26 @@ const Wrapper = styled.section`
   }
 
   .card {
-    border: 0.1rem solid rgb(170 170 170 / 40%);
+    background-color: ${({ theme }) => theme.colors.bg};
+    border-radius: 1rem;
 
     .card-data {
       padding: 0 1rem;
     }
 
     .card-data-flex {
-      margin: 1rem 0;
+      margin: 2rem 0;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
 
+    .card-data--price {
+      color: ${({ theme }) => theme.colors.helper};
+    }
+
     h3 {
-      font-weight: 300;
-      font-size: 1.8rem;
+      color: ${({ theme }) => theme.colors.text};
       text-transform: capitalize;
     }
 

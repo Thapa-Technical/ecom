@@ -13,7 +13,7 @@ const initialState = {
   cart: getCartItems(),
   total_item: 0,
   total_amount: 0,
-  shipping_fee: 512,
+  shipping_fee: 500,
 };
 
 const CartContext = createContext();
@@ -29,19 +29,18 @@ const CartProvider = ({ children }) => {
     });
   };
 
+  // setting the localStorage
   useEffect(() => {
+    dispatch({ type: "CART_TOTAL_AMOUNT" });
     localStorage.setItem("cart", JSON.stringify(state.cart));
-    console.log(
-      "🚀 ~ file: cart_context.js ~ line 26 ~ useEffect ~ state.cart",
-      state.cart
-    );
   }, [state.cart]);
 
-  const totalAmount = (amount, price) => {
-    dispatch({ type: "CART_TOTAL_AMOUNT", payload: { amount, price } });
-  };
+  // // Order total amount
+  // const totalAmount = (amount, price) => {
+  //   dispatch({ type: "CART_TOTAL_AMOUNT", payload: { amount, price } });
+  // };
 
-  //Toggle Amount
+  //Toggle Amount Inc & Dec
   const toggleAmount = (newId, value) => {
     dispatch({ type: "TOGGLE_AMOUNT", payload: { newId, value } });
   };
@@ -61,7 +60,6 @@ const CartProvider = ({ children }) => {
       value={{
         ...state,
         addToCart,
-        totalAmount,
         removeItem,
         clearCart,
         toggleAmount,

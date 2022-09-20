@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useGlobalContext } from "../context";
+import { useGlobalContext } from "../context/context";
 import Product from "./Product";
 
 const FeatureProducts = () => {
@@ -12,11 +12,14 @@ const FeatureProducts = () => {
 
   return (
     <Wrapper className="section">
-      <h2 className="common-heading">Our Services</h2>
-      <div className="container grid grid-three-column">
-        {featureProducts.map((curElem) => {
-          return <Product key={curElem.id} {...curElem} />;
-        })}
+      <div className="container">
+        <p className="intro-data">Check Now!</p>
+        <h2 className="common-heading">Our Feature Services</h2>
+        <div className=" grid grid-three-column">
+          {featureProducts.map((curElem) => {
+            return <Product key={curElem.id} {...curElem} />;
+          })}
+        </div>
       </div>
     </Wrapper>
   );
@@ -61,27 +64,42 @@ const Wrapper = styled.section`
       height: 20rem;
       transition: all 0.2s linear;
     }
+
+    .caption {
+      position: absolute;
+      top: 15%;
+      right: 10%;
+      text-transform: uppercase;
+      background-color: ${({ theme }) => theme.colors.bg};
+      color: ${({ theme }) => theme.colors.helper};
+      padding: 0.8rem 2rem;
+      font-size: 1.2rem;
+      border-radius: 2rem;
+    }
   }
 
   .card {
-    border: 0.1rem solid rgb(170 170 170 / 40%);
+    background-color: #fff;
+    border-radius: 1rem;
 
     .card-data {
       padding: 0 2rem;
     }
 
     .card-data-flex {
-      margin: 1rem 0;
+      margin: 2rem 0;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
 
     h3 {
-      /* margin: 2rem 0; */
-      font-weight: 300;
-      font-size: 2rem;
+      color: ${({ theme }) => theme.colors.text};
       text-transform: capitalize;
+    }
+
+    .card-data--price {
+      color: ${({ theme }) => theme.colors.helper};
     }
 
     .btn {

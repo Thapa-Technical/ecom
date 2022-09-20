@@ -36,7 +36,7 @@ const CartItem = ({ id, image, name, color, price, amount }) => {
         </div>
       </div>
       {/* // price */}
-      <div>
+      <div className="cart-hide">
         <p>
           <FormatPrice price={price} />
         </p>
@@ -50,13 +50,13 @@ const CartItem = ({ id, image, name, color, price, amount }) => {
         />
       </div>
       {/* //Subtotal */}
-      <div>
+      <div className="cart-hide">
         <p>
           <FormatPrice price={price * amount} />
         </p>
       </div>
       <div>
-        <FaTrash onClick={() => removeItem(id)} />
+        <FaTrash className="remove_icon" onClick={() => removeItem(id)} />
       </div>
     </div>
   );
