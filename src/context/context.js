@@ -10,9 +10,9 @@ const AppContext = React.createContext();
 const initialState = {
   isLoading: false,
   isError: false,
-  stock_count: 0,
   products: [],
   featureProducts: [],
+  stock_count: 0,
   isSinglePageLoading: false,
   singleProduct: {},
 };

@@ -36,15 +36,6 @@ const SingleProduct = () => {
     stars,
     stock,
   } = singleProduct;
-  console.log(
-    "🚀 ~ file: SingleProduct.js ~ line 36 ~ SingleProduct ~ price",
-    price
-  );
-
-  // console.log(
-  //   "🚀 ~ file: SingleProduct.js ~ line 38 ~ SingleProduct ~ singleProduct",
-  //   singleProduct
-  // );
 
   // here the id we are getting from the url and passing it to the function to get the single product all information
   useEffect(() => {

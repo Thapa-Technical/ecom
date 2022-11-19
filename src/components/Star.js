@@ -4,9 +4,11 @@ import { AiOutlineStar } from "react-icons/ai";
 import styled from "styled-components";
 
 const Star = ({ stars, review }) => {
-  const ratingStar = Array.from({ length: 5 }, (_, index) => {
+  const ratingStar = Array.from({ length: 5 }, (elem, index) => {
+    console.log("🚀 ~ file: Star.js ~ line 8 ~ ratingStar ~ index", index);
     // to get the idea about the half star
     let numbers = index + 0.5;
+    // debugger;
     return (
       <span key={index}>
         {/* if 2.5 */}

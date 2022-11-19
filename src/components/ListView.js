@@ -19,7 +19,7 @@ const FeatureProducts = ({ products }) => {
                 <p>
                   <FormatPrice price={price} />
                 </p>
-                <p>{description.slice(0, 100)}</p>
+                <p>{description.slice(0, 99)}...</p>
                 <Button className="btn">
                   <NavLink to={`/singleproduct/${id}`}>Read More</NavLink>
                 </Button>

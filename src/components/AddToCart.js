@@ -39,6 +39,7 @@ const AddToCart = ({ product }) => {
                 onClick={() => {
                   setColor(curColor);
                 }}>
+                {/* to show the tick mark on the active color code  */}
                 {color === curColor ? <FaCheck className="checkStyle" /> : null}
               </button>
             );
@@ -55,7 +56,7 @@ const AddToCart = ({ product }) => {
 
       <NavLink
         to="/cart"
-        // NOTE: the Products in arg. is the one who is having all tht single product data of an indv. we call singleProduct api and the data we get stored in it. So it is coming from the singleProduct page
+        // NOTE: the Products in arg. is the one who is having all tht single product data of an individual. we call singleProduct api and the data we get stored in it. So it is coming from the singleProduct page
         onClick={() => {
           addToCart(id, color, amount, product);
         }}>

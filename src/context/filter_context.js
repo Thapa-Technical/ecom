@@ -53,9 +53,9 @@ export const FilterContextProvider = ({ children }) => {
       value = e.target.textContent;
     }
 
-    /* NOTE: we don't have any option to get the values of the colors so we use data attribute */
+    /* NOTE: We don't have any option to get the values of the colors so we use data attribute */
     if (name === "colors") {
-      alert("Hii");
+      // alert("Hii");
       value = e.target.dataset.color;
     }
 

@@ -1,5 +1,6 @@
 export const uniqueValues = (data, type) => {
   let unique = data.map((product) => product[type]);
+  console.log("unique" + unique);
   if (type === "colors") {
     unique = unique.flat();
   }

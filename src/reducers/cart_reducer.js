@@ -104,6 +104,7 @@ const cat_reducer = (state, action) => {
           // debugger;
           return accum;
         },
+        // the initial value
         {
           total_item: 0,
           total_amount: 0,

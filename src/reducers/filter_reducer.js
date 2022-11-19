@@ -64,6 +64,7 @@ const filter_reducer = (state, action) => {
         filter_products: tempProduct,
       };
 
+    // update the name and value in state variable
     case "UPDATE_FILTERS":
       const { name, value } = action.payload;
       return {
@@ -76,11 +77,14 @@ const filter_reducer = (state, action) => {
       let { all_products } = state;
       let tempFilterProd = [...all_products];
 
+      // let tempFilterProd = [...filter_products];
+
       let { text, category, company, price, colors } = state.filters;
 
       if (text) {
-        tempFilterProd = tempFilterProd.filter((p) =>
-          p.name.toLowerCase().startsWith(text)
+        tempFilterProd = tempFilterProd.filter((search) =>
+          // p.name.toLowerCase().startsWith(text)
+          search.name.toLowerCase().includes(text)
         );
       }
 
@@ -92,10 +96,6 @@ const filter_reducer = (state, action) => {
             )
           ),
         ];
-        console.log(
-          "🚀 ~ file: filter_reducer.js ~ line 87 ~ tempFilterProd",
-          tempFilterProd
-        );
       }
 
       if (company !== "all") {
@@ -134,7 +134,7 @@ const filter_reducer = (state, action) => {
           company: "all",
           min_price: 0,
           price: state.filters.max_price,
-          shipping: false,
+          // shipping: false,
           text: "",
         },
       };

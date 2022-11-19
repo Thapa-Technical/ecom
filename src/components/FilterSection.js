@@ -15,7 +15,7 @@ const FilterSection = () => {
     clearFilters,
   } = useFilterContext();
 
-  // here we need to get the unique property values based on the 2nd argument respective in an array so that we can use map and display on page
+  // Here we need to get the unique property values based on the 2nd argument respective in an array so that we can use map and display on page
   const categories = uniqueValues(all_products, "category");
   const company = uniqueValues(all_products, "company");
   const colors = uniqueValues(all_products, "colors");
@@ -37,15 +37,16 @@ const FilterSection = () => {
       <div className="filter-category">
         <h3>Category</h3>
         <div>
-          {categories.map((c, index) => {
+          {categories.map((curElem, index) => {
             return (
               <button
                 key={index}
                 type="button"
                 name="category"
-                className={c === category ? "active" : ""}
+                value={curElem}
+                className={curElem === category ? "active" : ""}
                 onClick={updateFilters}>
-                {c}
+                {curElem}
               </button>
             );
           })}

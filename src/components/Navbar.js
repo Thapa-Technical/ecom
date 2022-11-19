@@ -129,7 +129,7 @@ const Navbar = () => {
         visibility: hidden;
         opacity: 0;
         transform: translateX(100%);
-        transform-origin: left;
+        /* transform-origin: top; */
         transition: all 3s linear;
       }
 
@@ -138,6 +138,8 @@ const Navbar = () => {
         opacity: 1;
         transform: translateX(0);
         z-index: 999;
+        transform-origin: right;
+        transition: all 3s linear;
 
         .navbar-link {
           font-size: 4.2rem;
